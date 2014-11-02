@@ -10,27 +10,29 @@ class Station
 
   def initialize(define_capacity = {})
     @capacity = define_capacity.fetch(:capacity, DEFAULT_CAPACITY)
-    @passengers = []
+    @passengers_in_station = []
   end
 
   attr_reader :capacity
+  attr_reader :passengers_in_station
+  # is this necessary?
 
-  def passenger_count
-    @passengers.count
+  def passengers_in_station_count
+    @passengers_in_station.count
   end
 
   def allow_in(passenger)
     raise NoCredit if passenger.out_of_credit
     raise StationFull if full?
-    @passengers << passenger
+    @passengers_in_station << passenger
   end
 
   def release(passenger)
-    @passengers.delete(passenger)
+    @passengers_in_station.delete(passenger)
   end
 
   def full?
-    passenger_count == @capacity
+    passengers_in_station_count == @capacity
   end
 
 end

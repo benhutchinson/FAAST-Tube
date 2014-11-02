@@ -4,6 +4,12 @@ class NoCredit < Exception
   end
 end
 
+class TrainFull < Exception
+  def message
+    "Train is full"
+  end
+end
+
 
 class Passenger
 
@@ -25,5 +31,13 @@ class Passenger
     true if @credit < MINIMUM_CREDIT_REQUIRED
   end
 
+  def boards(train, passenger)
+    raise TrainFull if train.full?
+    train.passengers_in_train.push(passenger)
+  end
+
+  def alights(train, passenger)
+    train.passengers_in_train.delete(passenger)
+  end
 
 end

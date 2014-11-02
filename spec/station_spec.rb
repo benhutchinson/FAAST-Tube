@@ -11,15 +11,15 @@ describe Station do
   end
 
   it "must let passengers with credit touch in" do
-    expect(station.passenger_count).to eq 0
+    expect(station.passengers_in_station_count).to eq 0
     station.allow_in(passenger)
-    expect(station.passenger_count).to eq 1
+    expect(station.passengers_in_station_count).to eq 1
   end
 
   it "must let passengers leave the station" do
     station.allow_in(passenger)
     station.release(passenger)
-    expect(station.passenger_count).to eq 0
+    expect(station.passengers_in_station_count).to eq 0
   end
 
   it "should know if it is full with passengers" do
@@ -37,6 +37,8 @@ describe Station do
     expect {station.allow_in(passenger_no_credit)}.to raise_error NoCredit
   end
 
+
+
   # it "must be able to let trains arrive" do
   # end
 
@@ -45,7 +47,6 @@ describe Station do
   # if train wants to arrive, must accept it provided there is space
   # it should know how much space it has for trains
   # it must allow passengers with credit to touch in/out
-
 
   
 end
