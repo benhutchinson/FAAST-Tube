@@ -20,7 +20,7 @@ class Station
   end
 
   def allow_in(passenger)
-    raise NoCredit if passenger.credit == false
+    raise NoCredit if passenger.out_of_credit
     raise StationFull if full?
     @passengers << passenger
   end

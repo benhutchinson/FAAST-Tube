@@ -7,7 +7,8 @@ end
 
 class Passenger
 
-  DEFAULT_CREDIT = true
+  MINIMUM_CREDIT_REQUIRED = 2
+  DEFAULT_CREDIT = MINIMUM_CREDIT_REQUIRED
 
   def initialize(creditparam = {})
     @credit = creditparam.fetch(:credit, DEFAULT_CREDIT)
@@ -17,11 +18,11 @@ class Passenger
   attr_reader :credit
 
   def has_credit?
-    @credit = true
+    true if @credit >= MINIMUM_CREDIT_REQUIRED
   end
 
   def out_of_credit
-    true if @credit == false
+    true if @credit < MINIMUM_CREDIT_REQUIRED
   end
 
 

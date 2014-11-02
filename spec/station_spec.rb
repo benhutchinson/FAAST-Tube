@@ -3,8 +3,8 @@ require 'station'
 describe Station do 
 
   let(:station) { Station.new(:capacity => 500) }
-  let(:passenger) { Passenger.new }
-  let(:passenger_no_credit) { Passenger.new(:credit => false)}
+  let(:passenger) { Passenger.new() }
+  let(:passenger_no_credit) { Passenger.new(:credit => 1)}
 
   def fill_station_with_passengers(station)
     station.capacity.times {station.allow_in(passenger)}
