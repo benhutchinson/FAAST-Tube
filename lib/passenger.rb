@@ -36,7 +36,8 @@ class Passenger
     true if @credit < MINIMUM_CREDIT_REQUIRED
   end
 
-  def boards(train, passenger)
+  def boards(train, passenger, station)
+    raise TrainNotInStation unless station.train_arrived?(train) == true
     raise TrainFull if train.full?
     train.passengers_in_train.push(passenger)
   end
