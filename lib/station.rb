@@ -1,3 +1,9 @@
+class StationFull < Exception
+  def message
+    "Station Is Full, No More Passengers Can Come In"
+  end
+end
+
 class Station
 
   DEFAULT_CAPACITY = 1000
@@ -14,7 +20,8 @@ class Station
   end
 
   def allow_in(passenger)
-    raise if full?
+    raise NoCredit if passenger.credit == false
+    raise StationFull if full?
     @passengers << passenger
   end
 
