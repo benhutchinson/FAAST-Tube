@@ -19,10 +19,17 @@ describe Passenger  do
   end
 
   it "should be able to get off a train" do
+    station.docks(train, station)
     passenger.boards(train, passenger)
     expect(train.passengers_in_train_count).to be 1
-    passenger.alights(train, passenger)
+    passenger.alights(train, passenger, station)
     expect(train.passengers_in_train_count).to be 0
+  end
+
+  it "should only be able to get off a train that has arrived at a station" do
+    station.docks(train, station)
+    station.undocks(train, station)
+    expect{ passenger.alights(train, passenger, station) }.to raise_error(TrainNotInStation)
   end
 
 end

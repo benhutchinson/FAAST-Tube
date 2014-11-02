@@ -11,10 +11,12 @@ class Station
   def initialize(define_capacity = {})
     @capacity = define_capacity.fetch(:capacity, DEFAULT_CAPACITY)
     @passengers_in_station = []
+    @train_at_station = []
   end
 
   attr_reader :capacity
   attr_reader :passengers_in_station
+  attr_reader :train_at_station
   # is this necessary?
 
   def passengers_in_station_count
@@ -35,4 +37,20 @@ class Station
     passengers_in_station_count == @capacity
   end
 
+  def docks(train, station)
+    train_at_station << train
+  end
+
+  def undocks(train, station)
+    train_at_station.delete(train)
+  end
+
+  def train_arrived?(train)
+    true if train_at_station.include?(train)
+  end
+
+  def train_departed?(train)
+    true if train_at_station.include?(train) == false
+  end
+  
 end

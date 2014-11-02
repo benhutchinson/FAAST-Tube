@@ -5,6 +5,7 @@ describe Station do
   let(:station) { Station.new(:capacity => 500) }
   let(:passenger) { Passenger.new() }
   let(:passenger_no_credit) { Passenger.new(:credit => 1)}
+  let(:train) { Train.new }
 
   def fill_station_with_passengers(station)
     station.capacity.times {station.allow_in(passenger)}
@@ -37,11 +38,18 @@ describe Station do
     expect {station.allow_in(passenger_no_credit)}.to raise_error NoCredit
   end
 
+  it "must be able to let trains arrive" do
+    station.docks(train, station)
+    expect(station.train_arrived?(train)).to be true
+  end
 
-
-  # it "must be able to let trains arrive" do
-  # end
-
+  it "must be able to let trains leave" do
+    station.docks(train, station)
+    expect(station.train_at_station.count).to be 1
+    station.undocks(train, station)
+    expect(station.train_at_station.count).to be 0
+    expect(station.train_departed?(train)).to be true
+  end
 
   # if train wants to go, must release it
   # if train wants to arrive, must accept it provided there is space

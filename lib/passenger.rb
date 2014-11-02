@@ -10,6 +10,11 @@ class TrainFull < Exception
   end
 end
 
+class TrainNotInStation < Exception
+  def message
+    "Train Is Not In Station So Passengers Cannot Board Or Alight"
+  end
+end
 
 class Passenger
 
@@ -36,7 +41,8 @@ class Passenger
     train.passengers_in_train.push(passenger)
   end
 
-  def alights(train, passenger)
+  def alights(train, passenger, station)
+    raise TrainNotInStation unless station.train_arrived?(train) == true
     train.passengers_in_train.delete(passenger)
   end
 
