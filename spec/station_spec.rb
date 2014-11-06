@@ -17,6 +17,10 @@ describe Station do
     expect(station.passengers_in_station.count).to eq 1
   end
 
+  it "should not allow a passenger in if they do not have credit" do
+    expect{station.allow_in(passenger_no_credit)}.to raise_error NoCredit
+  end
+
   it "must let passengers leave the station" do
     station.allow_in(passenger)
     station.release(passenger)
@@ -24,18 +28,14 @@ describe Station do
   end
 
   it "should know if it is full with passengers" do
-    expect(station).not_to be_full
+    expect(station.passengers_in_station.count).to be 0
     fill_station_with_passengers(station)
     expect(station).to be_full
   end
 
   it "should not allow a passenger in if it is full" do
     fill_station_with_passengers(station)
-    expect{ station.allow_in(passenger) }.to raise_error(StationFull)
-  end
-
-  it "should not allow a passenger in if they do not have credit" do
-    expect {station.allow_in(passenger_no_credit)}.to raise_error NoCredit
+    expect{station.allow_in(passenger)}.to raise_error(StationFull)
   end
 
   it "must be able to let trains arrive" do

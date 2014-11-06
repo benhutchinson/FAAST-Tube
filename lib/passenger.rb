@@ -37,13 +37,13 @@ class Passenger
   end
 
   def boards(train, passenger, station)
-    raise TrainNotInStation unless station.train_arrived?(train) == true
+    raise TrainNotInStation unless station.train_arrived?(train) 
     raise TrainFull if train.full?
     train.passengers_in_train.push(passenger)
   end
 
   def alights(train, passenger, station)
-    raise TrainNotInStation unless station.train_arrived?(train) == true
+    raise TrainNotInStation unless station.train_arrived?(train)
     train.passengers_in_train.delete(passenger)
   end
 

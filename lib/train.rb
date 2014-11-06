@@ -11,7 +11,6 @@ class Train
   attr_reader :capacity
   attr_reader :passengers_in_train
 
-
   def full?
     passengers_in_train.count == capacity
   end

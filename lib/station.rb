@@ -45,7 +45,7 @@ class Station
   end
 
   def train_departed?(train)
-    train_at_station.include?(train) == false
+    !train_at_station.include?(train)
   end
   
 end
