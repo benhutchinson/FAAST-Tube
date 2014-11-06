@@ -11,12 +11,9 @@ class Train
   attr_reader :capacity
   attr_reader :passengers_in_train
 
-  def passengers_in_train_count
-    passengers_in_train.count
-  end
 
   def full?
-    passengers_in_train_count == capacity
+    passengers_in_train.count == capacity
   end
 
 end

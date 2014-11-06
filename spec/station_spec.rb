@@ -12,15 +12,15 @@ describe Station do
   end
 
   it "must let passengers with credit touch in" do
-    expect(station.passengers_in_station_count).to eq 0
+    expect(station.passengers_in_station.count).to eq 0
     station.allow_in(passenger)
-    expect(station.passengers_in_station_count).to eq 1
+    expect(station.passengers_in_station.count).to eq 1
   end
 
   it "must let passengers leave the station" do
     station.allow_in(passenger)
     station.release(passenger)
-    expect(station.passengers_in_station_count).to eq 0
+    expect(station.passengers_in_station.count).to eq 0
   end
 
   it "should know if it is full with passengers" do

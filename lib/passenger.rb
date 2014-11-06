@@ -29,11 +29,11 @@ class Passenger
   attr_reader :credit
 
   def has_credit?
-    true if @credit >= MINIMUM_CREDIT_REQUIRED
+    credit >= MINIMUM_CREDIT_REQUIRED
   end
 
-  def out_of_credit
-    true if @credit < MINIMUM_CREDIT_REQUIRED
+  def out_of_credit?
+    credit < MINIMUM_CREDIT_REQUIRED
   end
 
   def boards(train, passenger, station)

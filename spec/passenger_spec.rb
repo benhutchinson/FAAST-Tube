@@ -16,15 +16,15 @@ describe Passenger  do
   it "should be able to board a train" do
     station.docks(train, station)
     passenger.boards(train, passenger, station)
-    expect(train.passengers_in_train_count).to be 1
+    expect(train.passengers_in_train.count).to be 1
   end
 
   it "should be able to get off a train" do
     station.docks(train, station)
     passenger.boards(train, passenger, station)
-    expect(train.passengers_in_train_count).to be 1
+    expect(train.passengers_in_train.count).to be 1
     passenger.alights(train, passenger, station)
-    expect(train.passengers_in_train_count).to be 0
+    expect(train.passengers_in_train.count).to be 0
   end
 
   it "should only be able to get off a train that has arrived at a station" do
