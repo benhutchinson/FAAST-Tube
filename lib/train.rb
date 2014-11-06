@@ -15,4 +15,12 @@ class Train
     passengers_in_train.count == capacity
   end
 
+  def arrives_at_station(train, station)
+    station.train_at_station.push(train)
+  end
+
+  def departs_from_station(train, station)
+    station.train_at_station.delete(train)
+  end
+
 end

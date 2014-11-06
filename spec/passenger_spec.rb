@@ -7,7 +7,7 @@ describe Passenger  do
   let (:station) { Station.new() }
 
   def let_train_arrive_in_the_station_and_passenger_board
-    station.docks(train, station)
+    train.arrives_at_station(train, station)
     passenger.boards(train, passenger, station)
   end
 
@@ -27,14 +27,14 @@ describe Passenger  do
     expect(train.passengers_in_train.count).to be 0
   end
 
-  it "should only be able to get off a train that has arrived at a station" do
-    !station.train_arrived?(train)
-    expect{passenger.alights(train, passenger, station)}.to raise_error(TrainNotInStation)
-  end
-
   it "should only be able to board a train that has arrived at a station" do
     !station.train_arrived?(train)
     expect {passenger.boards(train, passenger, station)}.to raise_error(TrainNotInStation)
+  end
+
+  it "should only be able to get off a train that has arrived at a station" do
+    !station.train_arrived?(train)
+    expect{passenger.alights(train, passenger, station)}.to raise_error(TrainNotInStation)
   end
 
 end

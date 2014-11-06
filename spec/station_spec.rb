@@ -11,17 +11,17 @@ describe Station do
     station.capacity.times {station.allow_in(passenger)}
   end
 
-  it "must let passengers with credit touch in" do
+  it "should let passengers with credit touch in and enter the station" do
     expect(station.passengers_in_station.count).to eq 0
     station.allow_in(passenger)
     expect(station.passengers_in_station.count).to eq 1
   end
 
-  it "should not allow a passenger in if they do not have credit" do
+  it "should not allow a passenger into the station if they do not have credit" do
     expect{station.allow_in(passenger_no_credit)}.to raise_error NoCredit
   end
 
-  it "must let passengers leave the station" do
+  it "should let passengers leave the station" do
     station.allow_in(passenger)
     station.release(passenger)
     expect(station.passengers_in_station.count).to eq 0
@@ -38,15 +38,15 @@ describe Station do
     expect{station.allow_in(passenger)}.to raise_error(StationFull)
   end
 
-  it "must be able to let trains arrive" do
-    station.docks(train, station)
+  it "must be able to recognise that a train has arrived" do
+    train.arrives_at_station(train, station)
     expect(station.train_arrived?(train)).to be true
   end
 
-  it "must be able to let trains leave" do
-    station.docks(train, station)
+  it "must be able to recognise that a train has left" do
+    train.arrives_at_station(train, station)
     expect(station.train_at_station.count).to be 1
-    station.undocks(train, station)
+    train.departs_from_station(train, station)
     expect(station.train_at_station.count).to be 0
     expect(station.train_departed?(train)).to be true
   end

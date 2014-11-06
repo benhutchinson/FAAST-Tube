@@ -32,13 +32,13 @@ class Station
     passengers_in_station.count == capacity
   end
 
-  def docks(train, station)
-    train_at_station << train
-  end
+  # def docks(train, station)
+  #   train_at_station << train
+  # end
 
-  def undocks(train, station)
-    train_at_station.delete(train)
-  end
+  # def undocks(train, station)
+  #   train_at_station.delete(train)
+  # end
 
   def train_arrived?(train)
     train_at_station.include?(train)
