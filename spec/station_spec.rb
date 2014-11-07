@@ -5,10 +5,11 @@ describe Station do
   let(:station) { Station.new(:capacity => 500) }
   let(:passenger) { Passenger.new() }
   let(:passenger_no_credit) { Passenger.new(:credit => 1)}
+  let(:passenger_touched_in) { double :passenger, :entered_station= => nil, :entered_station => true, :out_of_credit? => false} 
   let(:train) { Train.new }
 
   def fill_station_with_passengers(station)
-    station.capacity.times {station.allow_in(passenger)}
+    station.capacity.times {station.allow_in(passenger_touched_in)}
   end
 
   def let_a_passenger_with_credit_touch_in
@@ -28,6 +29,13 @@ describe Station do
     let_a_passenger_with_credit_touch_in
     station.release(passenger)
     expect(station.passengers_in_station.count).to eq 0
+  end
+
+  it "should not allow a passenger to leave if not in the station" do
+    let_a_passenger_with_credit_touch_in
+    train.arrives_at_station(station)
+    passenger.boards(train, station)
+    expect{station.release(passenger)}.to raise_error PassengerNotInStation
   end
 
   it "should know if it is full with passengers" do

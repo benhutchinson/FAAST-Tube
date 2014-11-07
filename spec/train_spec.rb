@@ -8,7 +8,10 @@ describe Train  do
   
   def fill_up_a_train_on_arrival
     train.arrives_at_station(station)
-    train.capacity.times { passenger.boards(train, station) }
+    train.capacity.times do 
+      station.allow_in(passenger)
+      passenger.boards(train, station) 
+    end
   end
 
   def create_a_station_that_is_full_of_trains 

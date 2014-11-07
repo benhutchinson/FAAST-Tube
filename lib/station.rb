@@ -4,6 +4,12 @@ class StationFull < Exception
   end
 end
 
+class PassengerNotInStation < Exception
+  def message
+    "Passenger is not currently in the station."
+  end
+end
+
 class Station
 
   DEFAULT_PASSENGER_CAPACITY = 1000
@@ -25,9 +31,11 @@ class Station
     raise NoCredit if passenger.out_of_credit?
     raise StationFull if full_of_passengers?
     passengers_in_station << passenger
+    passenger.entered_station = true 
   end
 
   def release(passenger)
+    raise PassengerNotInStation unless passengers_in_station.include?(passenger)
     passengers_in_station.delete(passenger)
   end
 

@@ -16,6 +16,12 @@ class TrainNotInStation < Exception
   end
 end
 
+class PassengerNotInStationYet < Exception
+  def message
+    "Passenger must enter station in order to board train"
+  end
+end
+
 class Passenger
 
   MINIMUM_CREDIT_REQUIRED = 2
@@ -23,11 +29,12 @@ class Passenger
 
   def initialize(creditparam = {})
     @credit = creditparam.fetch(:credit, DEFAULT_CREDIT)
-    # this will be the required 2GBP to touch-in
+    @entered_station = false
   end
 
   attr_reader :credit
   attr_accessor :current_location
+  attr_accessor :entered_station
 
   def has_credit?
     credit >= MINIMUM_CREDIT_REQUIRED
@@ -40,12 +47,15 @@ class Passenger
   def boards(train, station)
     raise TrainNotInStation unless station.train_arrived?(train) 
     raise TrainFull if train.full?
+    raise PassengerNotInStationYet unless entered_station
     train.passengers_in_train.push(self)
+    station.passengers_in_station.delete(self)
   end
 
   def alights(train, station)
     raise TrainNotInStation unless station.train_arrived?(train)
     train.passengers_in_train.delete(self)
+    station.passengers_in_station.push(self)
   end
 
 end
