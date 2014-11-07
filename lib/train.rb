@@ -1,3 +1,10 @@
+class StationIsFullOfTrains < Exception
+  def message
+    "The station is currently full of trains."
+  end
+end
+
+
 class Train
 
   MINIMUM_COACHES = 1
@@ -16,6 +23,7 @@ class Train
   end
 
   def arrives_at_station(train, station)
+    raise StationIsFullOfTrains if station.full_of_trains?
     station.train_at_station.push(train)
   end
 

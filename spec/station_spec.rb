@@ -30,7 +30,7 @@ describe Station do
   it "should know if it is full with passengers" do
     expect(station.passengers_in_station.count).to be 0
     fill_station_with_passengers(station)
-    expect(station).to be_full
+    expect(station).to be_full_of_passengers
   end
 
   it "should not allow a passenger in if it is full" do
@@ -51,10 +51,21 @@ describe Station do
     expect(station.train_departed?(train)).to be true
   end
 
-  # if train wants to go, must release it
+  it "should know how many trains are in the station" do 
+    expect(station.train_at_station.count).to be 0
+    train.arrives_at_station(train, station)
+    expect(station.train_at_station.count).to be 1
+  end
+
+  it "should know when it is full of trains" do
+    train.arrives_at_station(train, station)
+    station.train_capacity = 1
+    expect(station.full_of_trains?).to be true
+  end
+
+
   # if train wants to arrive, must accept it provided there is space
   # it should know how much space it has for trains
-  # it must allow passengers with credit to touch in/out
 
   
 end

@@ -27,6 +27,7 @@ class Passenger
   end
 
   attr_reader :credit
+  attr_accessor :current_location
 
   def has_credit?
     credit >= MINIMUM_CREDIT_REQUIRED
@@ -36,15 +37,15 @@ class Passenger
     credit < MINIMUM_CREDIT_REQUIRED
   end
 
-  def boards(train, passenger, station)
+  def boards(train, station)
     raise TrainNotInStation unless station.train_arrived?(train) 
     raise TrainFull if train.full?
-    train.passengers_in_train.push(passenger)
+    train.passengers_in_train.push(self)
   end
 
-  def alights(train, passenger, station)
+  def alights(train, station)
     raise TrainNotInStation unless station.train_arrived?(train)
-    train.passengers_in_train.delete(passenger)
+    train.passengers_in_train.delete(self)
   end
 
 end
