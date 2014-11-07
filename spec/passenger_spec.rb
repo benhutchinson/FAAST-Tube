@@ -7,7 +7,7 @@ describe Passenger  do
   let (:station) { Station.new() }
 
   def let_train_arrive_in_the_station_and_passenger_board
-    train.arrives_at_station(train, station)
+    train.arrives_at_station(station)
     passenger.boards(train, station)
   end
 
@@ -22,7 +22,6 @@ describe Passenger  do
 
   it "should be able to get off a train" do
     let_train_arrive_in_the_station_and_passenger_board
-    expect(train.passengers_in_train.count).to be 1
     passenger.alights(train, station)
     expect(train.passengers_in_train.count).to be 0
   end
