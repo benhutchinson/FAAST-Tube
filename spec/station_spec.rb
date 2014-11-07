@@ -25,6 +25,22 @@ describe Station do
     expect{station.allow_in(passenger_no_credit)}.to raise_error NoCredit
   end
 
+  it "should know if it is full with passengers" do
+    fill_station_with_passengers(station)
+    expect(station).to be_full_of_passengers
+  end
+
+  it "should not allow a passenger in if it is full" do
+    fill_station_with_passengers(station)
+    expect{station.allow_in(passenger)}.to raise_error(StationFull)
+  end
+
+  it "should not allow a passenger to alight a train if full" do 
+    fill_station_with_passengers(station)
+    train.arrives_at_station(station)
+    expect{passenger.alights(train, station)}.to raise_error(StationFull)
+  end
+
   it "should let passengers leave the station" do
     let_a_passenger_with_credit_touch_in
     station.release(passenger)
@@ -36,16 +52,6 @@ describe Station do
     train.arrives_at_station(station)
     passenger.boards(train, station)
     expect{station.release(passenger)}.to raise_error PassengerNotInStation
-  end
-
-  it "should know if it is full with passengers" do
-    fill_station_with_passengers(station)
-    expect(station).to be_full_of_passengers
-  end
-
-  it "should not allow a passenger in if it is full" do
-    fill_station_with_passengers(station)
-    expect{station.allow_in(passenger)}.to raise_error(StationFull)
   end
 
   it "must be able to recognise that a train has arrived" do
@@ -64,10 +70,5 @@ describe Station do
     station.train_capacity = 1
     expect(station.full_of_trains?).to be true
   end
-
-
-  # if train wants to arrive, must accept it provided there is space
-  # it should know how much space it has for trains
-
   
 end

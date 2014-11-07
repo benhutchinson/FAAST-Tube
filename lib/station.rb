@@ -54,5 +54,5 @@ class Station
   def full_of_trains?
     train_at_station.count == train_capacity
   end
-  
+
 end

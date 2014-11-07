@@ -22,6 +22,12 @@ class PassengerNotInStationYet < Exception
   end
 end
 
+class StationFull < Exception
+  def message
+    "Station Is Full, No More Passengers Can Come In"
+  end
+end
+
 class Passenger
 
   MINIMUM_CREDIT_REQUIRED = 2
@@ -54,6 +60,7 @@ class Passenger
 
   def alights(train, station)
     raise TrainNotInStation unless station.train_arrived?(train)
+    raise StationFull if station.full_of_passengers?
     train.passengers_in_train.delete(self)
     station.passengers_in_station.push(self)
   end

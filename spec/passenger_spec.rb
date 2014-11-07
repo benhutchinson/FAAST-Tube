@@ -4,7 +4,9 @@ describe Passenger  do
   
   let (:passenger) { Passenger.new } 
   let (:train) { Train.new() }
+  let(:train_with_passengers) { double :train, :full? => true }
   let (:station) { Station.new() }
+  let (:station_full_of_passengers) {double :station, :full_of_passengers? => true, :full_of_trains? => false}
 
   def let_a_passenger_enter_the_station
     station.allow_in(passenger)
