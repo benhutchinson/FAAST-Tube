@@ -1,4 +1,5 @@
 require 'passenger'
+require 'exceptions'
 
 describe Passenger  do
   

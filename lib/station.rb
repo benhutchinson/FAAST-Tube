@@ -1,15 +1,3 @@
-class StationFull < Exception
-  def message
-    "Station Is Full, No More Passengers Can Come In"
-  end
-end
-
-class PassengerNotInStation < Exception
-  def message
-    "Passenger is not currently in the station."
-  end
-end
-
 class Station
 
   DEFAULT_PASSENGER_CAPACITY = 1000
@@ -56,3 +44,4 @@ class Station
   end
 
 end
+

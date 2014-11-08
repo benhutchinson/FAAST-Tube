@@ -1,4 +1,5 @@
 require 'train'
+require 'exceptions'
 
 describe Train  do
 

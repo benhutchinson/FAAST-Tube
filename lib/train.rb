@@ -1,10 +1,3 @@
-class StationIsFullOfTrains < Exception
-  def message
-    "The station is currently full of trains."
-  end
-end
-
-
 class Train
 
   MINIMUM_COACHES = 1
@@ -32,3 +25,4 @@ class Train
   end
 
 end
+

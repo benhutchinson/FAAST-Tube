@@ -1,4 +1,5 @@
 require 'station'
+require 'exceptions'
 
 describe Station do 
 

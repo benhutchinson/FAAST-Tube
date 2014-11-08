@@ -1,33 +1,3 @@
-class NoCredit < Exception
-  def message
-    "Passenger does not have credit required"
-  end
-end
-
-class TrainFull < Exception
-  def message
-    "Train is full"
-  end
-end
-
-class TrainNotInStation < Exception
-  def message
-    "Train Is Not In Station So Passengers Cannot Board Or Alight"
-  end
-end
-
-class PassengerNotInStationYet < Exception
-  def message
-    "Passenger must enter station in order to board train"
-  end
-end
-
-class StationFull < Exception
-  def message
-    "Station Is Full, No More Passengers Can Come In"
-  end
-end
-
 class Passenger
 
   MINIMUM_CREDIT_REQUIRED = 2
@@ -66,3 +36,5 @@ class Passenger
   end
 
 end
+
+
