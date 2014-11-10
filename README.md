@@ -26,6 +26,9 @@ We have been asked to design the so-called **FAAST* system so that it can be dep
 - Use more doubles
 - Classes currently hold too many responsibilities
 - The Station "allowing in" Passengers seems a bit counter-intuitive.
+- A Coach class has suggested by others
+- We learned about the SOLID principles after this has been started
+- These would be better deployed in future versions
 
 ###Technologies
 - Ruby
