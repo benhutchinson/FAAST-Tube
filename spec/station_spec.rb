@@ -8,7 +8,6 @@ describe Station do
   let(:passenger) { Passenger.new() }
   let(:passenger2) { Passenger.new() }
   let(:passenger_no_credit) { Passenger.new(:credit => 1)}
-  let(:passenger_touched_in) { double :passenger, :entered_station= => nil, :entered_station => true, :out_of_credit? => false} 
   let(:train) { Train.new }
 
   def fill_station_with_passengers(small_station)

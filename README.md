@@ -13,6 +13,20 @@ We have been asked to design the so-called **FAAST* system so that it can be dep
 - Each train is made of a number of coaches.
 - There is an optional charging system.  Here, passengers can only touch in a station (and access the train) if their account has more than 2 GBP.
 
+###How The System Is Designed
+- A Passenger is created.  It has sufficient credit by default, but this can be specified.
+- Stations control Passenger entrance, and "allow in" passengers who have credit.
+- A Train can arrive and depart from a station.
+- When a Train has arrived, Passengers on the train can alight and enter the station, provided that the station is not rammed-full of waiting Passengers.
+- When a Train has arrived, Passengers waiting at the station can board the train, provided that the Train is not rammed-full of travelling Passengers.
+- The Train can depart from the Station.
+- A Passenger that is in a Station can be "released" by that Station in order to exit.
+
+###How I Might Improve This
+- Use more doubles
+- Classes currently hold too many responsibilities
+- The Station "allowing in" Passengers seems a bit counter-intuitive.
+
 ###Technologies
 - Ruby
 - RSpec
