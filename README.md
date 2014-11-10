@@ -27,6 +27,9 @@ We have been asked to design the so-called **FAAST* system so that it can be dep
 - Classes currently hold too many responsibilities
 - The Station "allowing in" Passengers seems a bit counter-intuitive.  A supplementary "enter" method has been suggested for the Passenger class that invokes allow_in to address this.
 - A Coach class has suggested by others
+- The Train and Passenger classes are both movable objects.  Could a module be deployed for common functionality?
+- The Train and Station classes both hold people.  Could a module be deployed for common functionality?
+- Logically, it may be easier to track the Passenger's location, rather than define a boolean entered_station
 - We learned about the SOLID principles after this has been started
 - These would be better deployed in future versions
 
