@@ -26,6 +26,7 @@ class Passenger
     raise PassengerNotInStationYet unless entered_station
     train.passengers_in_train.push(self)
     station.passengers_in_station.delete(self)
+    @entered_station = false
   end
 
   def alights(train, station)
@@ -33,6 +34,7 @@ class Passenger
     raise StationFull if station.full_of_passengers?
     train.passengers_in_train.delete(self)
     station.passengers_in_station.push(self)
+    @entered_station = true
   end
 
 end

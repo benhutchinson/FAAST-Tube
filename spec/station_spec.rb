@@ -4,13 +4,16 @@ require 'exceptions'
 describe Station do 
 
   let(:station) { Station.new(:capacity => 500) }
+  let(:small_station) { Station.new(:capacity => 2)}
   let(:passenger) { Passenger.new() }
+  let(:passenger2) { Passenger.new() }
   let(:passenger_no_credit) { Passenger.new(:credit => 1)}
   let(:passenger_touched_in) { double :passenger, :entered_station= => nil, :entered_station => true, :out_of_credit? => false} 
   let(:train) { Train.new }
 
-  def fill_station_with_passengers(station)
-    station.capacity.times {station.allow_in(passenger_touched_in)}
+  def fill_station_with_passengers(small_station)
+    small_station.allow_in(passenger)
+    small_station.allow_in(passenger2)
   end
 
   def let_a_passenger_with_credit_touch_in
@@ -27,19 +30,19 @@ describe Station do
   end
 
   it "should know if it is full with passengers" do
-    fill_station_with_passengers(station)
-    expect(station).to be_full_of_passengers
+    fill_station_with_passengers(small_station)
+    expect(small_station).to be_full_of_passengers
   end
 
   it "should not allow a passenger in if it is full" do
-    fill_station_with_passengers(station)
-    expect{station.allow_in(passenger)}.to raise_error(StationFull)
+    fill_station_with_passengers(small_station)
+    expect{small_station.allow_in(passenger)}.to raise_error(StationFull)
   end
 
   it "should not allow a passenger to alight a train if full" do 
-    fill_station_with_passengers(station)
-    train.arrives_at_station(station)
-    expect{passenger.alights(train, station)}.to raise_error(StationFull)
+    fill_station_with_passengers(small_station)
+    train.arrives_at_station(small_station)
+    expect{passenger.alights(train, small_station)}.to raise_error(StationFull)
   end
 
   it "should let passengers leave the station" do

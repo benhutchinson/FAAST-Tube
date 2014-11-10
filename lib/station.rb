@@ -7,6 +7,7 @@ class Station
   attr_reader :passengers_in_station
   attr_reader :train_at_station
   attr_accessor :train_capacity
+  attr_accessor :station
 
   def initialize(define_capacity = {})
     @capacity = define_capacity.fetch(:capacity, DEFAULT_PASSENGER_CAPACITY)
@@ -18,6 +19,7 @@ class Station
   def allow_in(passenger)
     raise NoCredit if passenger.out_of_credit?
     raise StationFull if full_of_passengers?
+    raise PassengerInAnotherStationAlready if passenger.entered_station
     passengers_in_station << passenger
     passenger.entered_station = true 
   end
@@ -25,6 +27,7 @@ class Station
   def release(passenger)
     raise PassengerNotInStation unless passengers_in_station.include?(passenger)
     passengers_in_station.delete(passenger)
+    passenger.entered_station = false
   end
 
   def full_of_passengers?

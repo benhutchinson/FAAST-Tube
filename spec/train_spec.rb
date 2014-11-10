@@ -4,6 +4,7 @@ require 'exceptions'
 describe Train  do
 
     let(:train) { Train.new() }
+    let(:train2) { Train.new() }
     let(:passenger) { Passenger.new() }
     let(:station) { Station.new}
   
@@ -48,7 +49,7 @@ describe Train  do
 
   it "must not be able to go to a station that is full" do 
     create_a_station_that_is_full_of_trains
-    expect{train.arrives_at_station(station)}.to raise_error(StationIsFullOfTrains)
+    expect{train2.arrives_at_station(station)}.to raise_error(StationIsFullOfTrains)
   end
 
 end

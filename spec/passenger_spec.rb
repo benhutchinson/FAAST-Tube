@@ -7,6 +7,7 @@ describe Passenger  do
   let (:train) { Train.new() }
   let(:train_with_passengers) { double :train, :full? => true }
   let (:station) { Station.new() }
+  let (:station2) { Station.new() }
   let (:station_full_of_passengers) {double :station, :full_of_passengers? => true, :full_of_trains? => false}
 
   def let_a_passenger_enter_the_station
@@ -24,7 +25,6 @@ describe Passenger  do
   end
 
   it "should be able to board a train" do
-    let_a_passenger_enter_the_station
     let_train_arrive_in_the_station_and_passenger_board
     expect(train.passengers_in_train.count).to be 1
   end
@@ -35,7 +35,6 @@ describe Passenger  do
   end
 
   it "should be able to get off a train" do
-    let_a_passenger_enter_the_station
     let_train_arrive_in_the_station_and_passenger_board
     passenger.alights(train, station)
     expect(train.passengers_in_train.count).to be 0
@@ -51,6 +50,11 @@ describe Passenger  do
     let_a_passenger_enter_the_station
     !station.train_arrived?(train)
     expect{passenger.alights(train, station)}.to raise_error(TrainNotInStation)
+  end
+
+  it "should only be able to be in one station at a time" do 
+    station.allow_in(passenger)
+    expect{station2.allow_in(passenger)}.to raise_error(PassengerInAnotherStationAlready)
   end
 
 end

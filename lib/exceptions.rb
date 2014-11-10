@@ -10,7 +10,6 @@ class PassengerNotInStation < Exception
   end
 end
 
-
 class NoCredit < Exception
   def message
     "Passenger does not have credit required"
@@ -38,5 +37,23 @@ end
 class StationFull < Exception
   def message
     "Station Is Full, No More Passengers Can Come In"
+  end
+end
+
+class PassengerInAnotherStationAlready < Exception
+  def message
+    "This passenger is already in another station"
+  end
+end
+
+class TrainStillAtAnotherStation < Exception
+  def message
+    "The train has not yet left another station"
+  end
+end
+
+class TrainNotHere < Exception
+  def message
+    "The train is not here so cannot depart from this station"
   end
 end
