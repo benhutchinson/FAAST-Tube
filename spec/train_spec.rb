@@ -9,11 +9,6 @@ describe "A Train" do
   let(:station) { Station.new}
     
 
-  def create_a_station_that_is_full_of_trains 
-    train.arrives_at_station(station)
-    station.train_capacity = 1
-  end
-
   it "should know its total capacity" do
     train = Train.new(:coaches => 3)
     expect(train.capacity).to be 120
@@ -22,11 +17,6 @@ describe "A Train" do
   it "must be able to arrive at a station" do
     train.arrives_at_station(station)
     expect(station.train_arrived?(train)).to be true
-  end
-
-  it "must not be able to go to a station that is full" do 
-    create_a_station_that_is_full_of_trains
-    expect{train2.arrives_at_station(station)}.to raise_error(StationIsFullOfTrains)
   end
 
   it "must be able to depart from a station" do
@@ -60,6 +50,16 @@ describe "A Train" do
       expect{passenger.boards(train, station)}.to raise_error(TrainFull)  
     end
 
+  end
+
+  def create_a_station_that_is_full_of_trains 
+    train.arrives_at_station(station)
+    station.train_capacity = 1
+  end
+
+  it "must not be able to go to a station that is full" do 
+    create_a_station_that_is_full_of_trains
+    expect{train2.arrives_at_station(station)}.to raise_error(StationIsFullOfTrains)
   end
 
 end
