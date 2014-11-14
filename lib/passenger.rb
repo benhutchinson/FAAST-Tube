@@ -3,7 +3,6 @@ class Passenger
   MINIMUM_CREDIT_REQUIRED = 2
   DEFAULT_CREDIT = MINIMUM_CREDIT_REQUIRED
 
-  attr_reader :credit
   attr_accessor :entered_station
 
   def initialize(creditparam = {})
@@ -12,7 +11,7 @@ class Passenger
   end
 
   def has_credit?
-    credit >= MINIMUM_CREDIT_REQUIRED
+    @credit >= MINIMUM_CREDIT_REQUIRED
   end
 
   def out_of_credit?

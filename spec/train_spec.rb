@@ -3,11 +3,23 @@ require 'exceptions'
 
 describe "A Train" do
 
-  let(:train) { Train.new() }
-  let(:train2) { Train.new() }
-  let(:passenger) { Passenger.new() }
+  let(:train) { Train.new }
+  let(:train2) { Train.new }
+  let(:passenger) { Passenger.new }
   let(:station) { Station.new}
     
+  def fill_up_a_train_on_arrival
+    train.arrives_at_station(station)
+    train.capacity.times do 
+    station.allow_in(passenger)
+    passenger.boards(train, station) 
+    end
+  end
+
+  def create_a_station_that_is_full_of_trains 
+    train.arrives_at_station(station)
+    station.train_capacity = 1
+  end
 
   it "should know its total capacity" do
     train = Train.new(:coaches => 3)
@@ -25,21 +37,10 @@ describe "A Train" do
     expect(station.train_departed?(train)).to be true
   end
 
-
   context "When It Is Full Of Passengers" do
 
     before :each do 
-      
-      def fill_up_a_train_on_arrival
-        train.arrives_at_station(station)
-        train.capacity.times do 
-        station.allow_in(passenger)
-        passenger.boards(train, station) 
-        end
-      end
-
       fill_up_a_train_on_arrival
-
     end
 
     it "should know if it is full" do 
@@ -50,11 +51,6 @@ describe "A Train" do
       expect{passenger.boards(train, station)}.to raise_error(TrainFull)  
     end
 
-  end
-
-  def create_a_station_that_is_full_of_trains 
-    train.arrives_at_station(station)
-    station.train_capacity = 1
   end
 
   it "must not be able to go to a station that is full" do 

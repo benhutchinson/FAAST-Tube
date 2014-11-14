@@ -5,14 +5,18 @@ describe "A Station" do
 
   let(:station) { Station.new(:capacity => 500) }
   let(:small_station) { Station.new(:capacity => 2)}
-  let(:passenger) { Passenger.new() }
-  let(:passenger2) { Passenger.new() }
+  let(:passenger) { Passenger.new }
+  let(:passenger2) { Passenger.new }
   let(:passenger_no_credit) { Passenger.new(:credit => 1)}
   let(:train) { Train.new }
 
-
   def let_a_passenger_with_credit_touch_in
     station.allow_in(passenger)
+  end
+
+  def fill_station_with_passengers(small_station)
+    small_station.allow_in(passenger)
+    small_station.allow_in(passenger2)
   end
 
   it "should let passengers with credit touch in and enter the station" do
@@ -24,18 +28,10 @@ describe "A Station" do
     expect{station.allow_in(passenger_no_credit)}.to raise_error NoCredit
   end
 
-
   context "When It Is Full Of Passengers" do
 
     before :each do 
-
-      def fill_station_with_passengers(small_station)
-        small_station.allow_in(passenger)
-        small_station.allow_in(passenger2)
-      end
-
       fill_station_with_passengers(small_station)
-
     end
 
     it "should know if it is full with passengers" do
@@ -53,13 +49,10 @@ describe "A Station" do
 
   end
 
-
   context "When A Passenger Tries To Leave" do
 
     before :each do 
-
       let_a_passenger_with_credit_touch_in
-
     end
 
     it "should allow passengers that are in the station to leave the station" do
@@ -75,13 +68,10 @@ describe "A Station" do
 
   end
 
-
   context "When A Train Has Arrived" do
 
     before :each do 
-
       train.arrives_at_station(station)
-
     end
 
     it "must be able to recognise that a train has arrived" do
